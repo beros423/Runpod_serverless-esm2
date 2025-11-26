@@ -167,7 +167,7 @@ class ESMEmbedder:
         return embeddings
 
 
-def embed_sequences(file_name: str, sequences: List[str], output_path: str, batch_size: int = 32):
+def embed_sequences(sequences: List[str], batch_size: int = 32):
     """
     Convenience function to embed sequences and save to file
     
@@ -181,5 +181,6 @@ def embed_sequences(file_name: str, sequences: List[str], output_path: str, batc
     """
     embedder = ESMEmbedder()
     embeddings = embedder.encode_batch(sequences, batch_size=batch_size)
-    embedder.save_embeddings(file_name, embeddings, output_path)
+    # embedder.save_embeddings(file_name, embeddings, output_path)
     return embeddings
+
