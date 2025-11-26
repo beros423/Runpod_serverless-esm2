@@ -4,6 +4,6 @@ COPY reqirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY esm_embeddings.py .
-COPY rp_handler_esm.py .
+COPY rp_handler.py .
 
-CMD ["python3", "-u", "rp_handler_esm.py"]
+CMD ["python3", "-u", "rp_handler.py"]
