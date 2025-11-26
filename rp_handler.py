@@ -3,7 +3,7 @@ import runpod
 import sys
 import os
 from pathlib import Path
-from main.esm_embedding import embed_sequences
+from esm_embedding import embed_sequences
 
 
 def handler(event):    
