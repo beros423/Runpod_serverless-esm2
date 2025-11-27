@@ -181,6 +181,21 @@ def embed_sequences(sequences: List[str], batch_size: int = 32):
     """
     embedder = ESMEmbedder()
     embeddings = embedder.encode_batch(sequences, batch_size=batch_size)
+    # convert any numpy arrays or torch tensors to plain Python lists
+    converted_embeddings = []
+    for emb in embeddings:
+        if emb is None:
+            converted_embeddings.append(None)
+        elif isinstance(emb, np.ndarray):
+            converted_embeddings.append(emb.tolist())
+        elif isinstance(emb, torch.Tensor):
+            converted_embeddings.append(emb.cpu().numpy().tolist())
+        else:
+            try:
+                converted_embeddings.append(emb.tolist())
+            except Exception:
+                converted_embeddings.append(emb)
+    embeddings = converted_embeddings
     # embedder.save_embeddings(file_name, embeddings, output_path)
     return embeddings
 
