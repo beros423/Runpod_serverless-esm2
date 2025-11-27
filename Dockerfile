@@ -5,9 +5,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY esm_embedding.py .
 COPY rp_handler.py .
+COPY test_input.json .
 
 RUN python rp_handler.py
-
 
 ## Docker run command
 CMD ["python3", "-u", "rp_handler.py"]
